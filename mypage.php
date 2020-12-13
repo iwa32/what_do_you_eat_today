@@ -4,7 +4,7 @@
   <?php require("header.php") ?>
 
   <main class="contents">
-    <div class="container">
+    <div class="main-container container">
       <?php echo $_SERVER['REQUEST_URI'] ?>
     </div>
   </main>
