@@ -1,0 +1,8 @@
+//scssメディアクエリ
+$sp: 767px;
+
+@mixin sp {
+  @media (max-width: ($sp)) {
+    @content;
+  }
+}

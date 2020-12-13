@@ -1,0 +1,37 @@
+/*共通スタイル*/
+.g-header {
+  background: #888;
+
+  &__wrapp {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    ul {
+      display: flex;
+    }
+    li {
+      margin-right: 10px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.g-footer {
+  background: #666;
+  &__wrapp {
+    padding: 10px;
+    text-align: center;
+  }
+}
