@@ -332,3 +332,8 @@ img {
   vertical-align: bottom;
   max-width: 100%;
 }
+
+input:-webkit-autofill {
+  background-color: transparent;
+  -webkit-box-shadow: 0 0 0 50px white inset;
+}

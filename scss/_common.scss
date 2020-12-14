@@ -1,6 +1,13 @@
 /*共通スタイル*/
+body {
+  font-family: $text-font;
+  font-size: $base-font-size;
+}
+
+/*header*/
 .g-header {
-  background: #888;
+  box-shadow: 0 2px 2px 0 #888888;
+  margin-bottom: 40px;
 
   &__wrapp {
     display: flex;
@@ -8,14 +15,29 @@
     padding: 10px;
   }
 
+  &__logo {
+    font-family: $logo-font;
+
+    a {
+      color: $head-color;
+    }
+  }
+
   &__nav {
     display: flex;
     align-items: center;
+
     ul {
       display: flex;
     }
+
     li {
       margin-right: 10px;
+
+      a {
+        color: $base-color;
+      }
+
       &:last-child {
         margin-right: 0;
       }
@@ -23,15 +45,109 @@
   }
 }
 
+/*contents*/
+.contents {
+  margin-bottom: 60px;
+}
+
+.main-container {
+  padding: 20px 10px;
+}
+
 .container {
-  max-width: 960px;
+  max-width: $width_pc;
   margin: 0 auto;
 }
 
+/*footer*/
 .g-footer {
-  background: #666;
+  box-shadow: 0px -2px 2px 0px #666666;
+  width: 100%;
+
   &__wrapp {
     padding: 10px;
     text-align: center;
   }
+}
+
+/*form*/
+.form-area {
+  margin: 0 auto;
+  width: 400px;
+  &__title {
+    font-size: $head-font-size;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  &__group {
+    margin-bottom: 20px;
+    &__badge {
+      font-size: $small-font-size;
+      padding: 0 4px;
+
+      &--any {
+        color: $sub-color;
+      }
+
+      &--required {
+        color: $attention-color;
+      }
+    }
+
+    &__help {
+      color: $sub-color;
+      font-size: $small-font-size;
+    }
+
+    &__input {
+      border: 1px solid;
+      padding: 2px 4px;
+      width: 100%;
+    }
+
+    &__attention {
+      color: $attention-color;
+      font-size: $small-font-size;
+    }
+
+    &__place-holder {
+      color: $sub-color;
+      font-size: $sub-font-size;
+    }
+  }
+
+  &__btn-group {
+    margin-top: 30px;
+    padding: 10px 0;
+    text-align: center;
+  }
+
+  &__btn--wrapp {
+    margin-bottom: 10px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__btn {
+    color: #ffffff;
+    padding: 4px 0;
+    width: 100%;
+    transition: .2s;
+    &:hover {
+      opacity: $hover_opacity;
+    }
+
+    &--normal {
+      background:$submit-btn-color;
+    }
+
+    &--twitter {
+      background: $twitter-color;
+    }
+  }
+
+
+
 }
