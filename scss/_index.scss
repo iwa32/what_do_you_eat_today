@@ -1,0 +1,159 @@
+.eat-selects {
+  &__title {
+    font-size: $head-font-size;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
+
+.eat-select {
+  padding: 20px;
+
+  &__lists {
+    margin: 0 auto;
+    padding: 20px;
+    width: 480px;
+  }
+
+  &__list {
+    border: 2px solid $base-color;
+    font-size: $large-font-size;
+    margin-bottom: 20px;
+    padding: 5px;
+    text-align: center;
+
+    &:hover {
+      cursor: pointer;
+      opacity: $hover_opacity;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &--lunch {
+      background: #FFBB00;
+    }
+
+    &--dinner {
+      background: #336B87;
+    }
+
+    &--meat {
+      background: #FD724F;
+    }
+
+    &--fish {
+      background: #4599CB;
+    }
+
+    &--noodles {
+      background: #F7A100;
+    }
+
+    &--bread {
+      background: #D8933A;
+    }
+
+    &--rice {
+      background: #F8F8F8;
+    }
+
+    &--dessert {
+      background: #F0ABC8;
+    }
+  }
+}
+
+.first-select {
+  color: #FFF;
+  // display: none;
+}
+
+.second-select {
+  display: none;
+}
+
+.meal-search-result {
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 800px;
+  display: none;
+
+  &__found {
+    margin-bottom: 20px;
+    padding: 4px 8px;
+  }
+
+  &__contents {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+  }
+
+  &__lists {
+    width: 46%;
+    max-height: 400px;
+    overflow-y: scroll;
+  }
+
+  &__g-map {
+    background: #888888;
+    height: 400px;
+    margin-bottom: 40px;
+    width: 50%;
+  }
+
+  &__list {
+    border: 1px solid $sub-color;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    min-height: 120px;
+    padding: 8px 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &__img {
+      width: 30%;
+    }
+  }
+
+  &__details {
+    width: 65%;
+
+    &__title {
+      font-size: $base-font-size;
+    }
+
+    &__info {
+      font-size: $sub-font-size;
+      display: flex;
+      flex-flow: row wrap;
+
+      dt {
+        width: 20%;
+        margin-right: 2%;
+      }
+
+      dd {
+        width: 70%;
+      }
+    }
+  }
+
+  &__to-top {
+    text-align: right;
+    width: 100%;
+
+    a {
+      color: $base-color;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
