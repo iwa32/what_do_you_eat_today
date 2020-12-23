@@ -159,7 +159,7 @@ input {
 textarea {
   overflow: auto;
   /* Internet Explorer 11+ */
-  resize: vertical;
+  resize: none;
   /* Specify textarea resizability */
 }
 

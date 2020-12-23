@@ -3,8 +3,9 @@
 $head-color: #111111;
 $base-color: #333333;
 $sub-color: #888888;
-$attention-color: #FF0000;
-$submit-btn-color: #eb6100;
+$alert-color: #FF0000;
+$attention-color: #eb6100;
+$edit-btn-color: #42BA00;
 $twitter-color: #00acee;
 
 /*書式*/
@@ -18,11 +19,15 @@ sans-serif;
 /*サイズ*/
 $width_pc: 960px;
 $width_sp: 767px;
-$base-font-size: 16px;//基本サイズ
 $head-font-size: 25px;//見出し
+$head-font-size_sp: 20px;//見出しsp
+$base-font-size: 16px;//基本サイズ
+$base-font-size_sp: 14px;//基本サイズsp
 $sub-font-size: 14px;
+$sub-font-size_sp: 12px;
 $large-font-size: 18px;
 $small-font-size: 12px;
+$nav-font-size_sp: 3.3vw;
 
 /*オプション*/
 $hover_opacity: 0.7;

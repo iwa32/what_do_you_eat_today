@@ -50,8 +50,8 @@
                     <dd>01-2345-0789</dd>
                   </dl>
                 </div>
-
                 <p class="meal-search-result__list__img"><img src="http://placehold.jp/120x120.png"></p>
+                <i class="fa fa-heart meal-search-result__list__favorite" aria-hidden="true"></i>
               </li>
 
               <li class="meal-search-result__list">

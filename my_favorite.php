@@ -1,7 +1,7 @@
 <?php require("profile.php") ?>
 <div class="my-page__body">
-  <div class="meal-search-history">
-    検索履歴
+  <div class="favorite-meal">
+    お気に入りの飲食店
   </div>
 </div>
 </div>

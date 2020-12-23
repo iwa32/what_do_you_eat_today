@@ -14,7 +14,7 @@
               <div class="form-area__group__name">Eメール<span class="form-area__group__badge form-area__group__badge--required">[必須]</span></div>
               <div class="form-area__group__help">Eメール形式で入力してください</div>
               <input class="form-area__group__input" type="text" name="email" id="email">
-              <div class="form-area__group__attention">エラーテキスト</div>
+              <div class="form-area__group__alert">エラーテキスト</div>
               <div class="form-area__group__place-holder">you@example.com</div>
             </label>
           </div>
@@ -24,7 +24,7 @@
               <div class="form-area__group__name">パスワード<span class="form-area__group__badge form-area__group__badge--required">[必須]</span></div>
               <div class="form-area__group__help">パスワードは5文字以上で入力してください</div>
               <input class="form-area__group__input" type="password" name="password" id="password">
-              <div class="form-area__group__attention">エラーテキスト</div>
+              <div class="form-area__group__alert">エラーテキスト</div>
             </label>
           </div>
 

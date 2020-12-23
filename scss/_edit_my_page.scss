@@ -1,0 +1,26 @@
+.edit-my-page {
+  &__thum-img {
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 10px;
+    max-width: 180px;
+  }
+
+  &__message {
+    min-height: 120px;
+  }
+
+  &__btns {
+    text-align: right;
+  }
+
+  @include sp {
+    &__thum-img {
+      max-width: 120px;
+    }
+  
+    &__message {
+      min-height: 80px;
+    }
+  }
+}

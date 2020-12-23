@@ -1,7 +1,9 @@
 <?php require("profile.php") ?>
 <div class="my-page__body">
-  <div class="meal-search-history">
-    検索履歴
+
+  <!-- urlによって出し分ける -->
+  <div class="selected-genre">
+    ジャンルごとの食事回数
   </div>
 </div>
 </div>

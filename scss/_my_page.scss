@@ -1,0 +1,111 @@
+.my-page {
+  max-width: 800px;
+  margin: 0 auto;
+
+  &__nav {
+    display: flex;
+    margin-bottom: 30px;
+
+    &__link {
+      text-align: center;
+      padding: 4px;
+      width: 25%;
+
+      a {
+        color: $base-color;
+      }
+
+      &:hover {
+        cursor: pointer;
+        opacity: $hover_opacity;
+      }
+
+      &.current {
+        border-bottom: 2px solid $attention-color;
+      }
+    }
+  }
+
+  @include sp {
+    &__nav {
+      margin-bottom: 15px;
+
+      &__link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: $nav-font-size_sp;
+        padding: 4px 1%;
+
+        &.current {
+          border-bottom: 2px solid $attention-color;
+        }
+      }
+    }
+  }
+}
+
+/*プロフィール*/
+.profile-me {
+  margin-bottom: 30px;
+
+  &__main {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  &__icon {
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 5%;
+  }
+
+  &__text {
+    padding: 10px;
+  }
+
+  &__message {
+    padding: 10px 0;
+    min-height: 100px;
+    width: 100%;
+  }
+
+  &__edit {
+    text-align: right;
+  }
+
+  @include sp {
+    margin-bottom: 15px;
+
+    &__main {
+      margin-bottom: 10px;
+    }
+
+    &__icon {
+      max-width: 100px;
+    }
+
+    &__text {
+      padding: 10px 2%;
+    }
+
+    &__message {
+      padding: 10px 2%;
+      min-height: 80px;
+    }
+  }
+}
+
+/*ジャンルごとの食事回数*/
+
+
+
+
+
+
+
+/*マイレビュー*/
+
+/*お気に入りの飲食店*/
+
+/*検索履歴*/
