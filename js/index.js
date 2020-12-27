@@ -17,7 +17,20 @@ $(function () {
     selectNextGenre($('#secondSelect'), $('#mealSearchResult'));
   })
 
-  $('#toEditProfileBtn').on('click', function() {
+  $('#toEditProfileBtn').on('click', function () {
     window.location.href = './edit_my_page.php';
   })
+
+  let isValidEmail = false;
+  let isValidPassword = false;
+  $('#email').on('change', function () {
+    isValidEmail = validEmail($(this));
+    unLockSubmitBtn(isValidEmail, isValidPassword);
+  })
+
+  $('#password').on('change', function() {
+    isValidPassword = validPassword($(this));
+    unLockSubmitBtn(isValidEmail, isValidPassword);
+  })
+
 })

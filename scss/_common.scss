@@ -168,6 +168,12 @@ body {
       border: 1px solid;
       padding: 2px 4px;
       width: 100%;
+      &.alert {
+        border: 1px solid $alert-color;
+      }
+      &.success  {
+        border: 1px solid $success-color;
+      }
     }
 
     &__alert {
@@ -211,6 +217,11 @@ body {
 
     &--twitter {
       background: $twitter-color;
+    }
+
+    &.disabled {
+      background: $glay-color;
+      pointer-events: none;
     }
   }
 
