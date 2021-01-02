@@ -176,6 +176,16 @@ body {
       }
     }
 
+    &__checkbox-area {
+      display: flex;
+      align-items:center;
+    }
+    &__check {
+      margin-right: 6px;
+      width: 16px;
+      height: 16px;
+    }
+
     &__alert {
       color: $alert-color;
       font-size: $small-font-size;
