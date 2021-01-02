@@ -6,6 +6,6 @@
 <script src = "./node_modules/jquery/dist/jquery.js"></script>
 <script src="./js/index.js"></script>
 <script src="./js/const.js"></script>
-<script src="./js/methods.js"></script>
+<script src="./js/function.js"></script>
 </body>
 </html>

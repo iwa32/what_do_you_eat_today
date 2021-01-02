@@ -8,6 +8,18 @@ function selectNextGenre($prev, $next) {
   $next.show(600);
 }
 
+
+/**
+ * お名前チェック
+ * @param {*} $node
+ */
+function validName($node) {
+  let successes = [];
+
+  successes.push(validMaxLen($node));
+  return isAllSuccess(successes, $node);
+}
+
 /**
  * Eメールチェック
  * @param {*} $node
@@ -16,11 +28,9 @@ function validEmail($node) {
 
   if (validRequired($node)) {
     let successes = [];
-
     successes.push(validMaxLen($node));
     successes.push(validTypeEmail($node));
-
-    return isAllSuccess(successes);
+    return isAllSuccess(successes, $node);
   }
   return false;
 }
@@ -32,12 +42,10 @@ function validEmail($node) {
 function validPassword($node) {
   if (validRequired($node)) {
     let successes = [];
-
     successes.push(validMinLen($node, 5));
     successes.push(validMaxLen($node));
     successes.push(validHalf($node));
-
-    return isAllSuccess(successes);
+    return isAllSuccess(successes, $node);
   }
   return false;
 }
@@ -45,9 +53,13 @@ function validPassword($node) {
 /**
  * 全てのバリデーションが有効かチェックする
  * @param {*} successes
+ * @param {*} $node
  */
-function isAllSuccess(successes) {
+function isAllSuccess(successes, $node) {
   if (!successes.includes(false)) {
+    $node.siblings('.form-area__group__alert').text('');
+    $node.removeClass('alert');
+    $node.addClass('success');
     return true;
   }
   return false;
@@ -55,11 +67,10 @@ function isAllSuccess(successes) {
 
 /**
  * 送信ボタンを押せるようにする
- * @param {*} isValidEmail 
- * @param {*} isValidPassword 
+ * @param {*} isValidValues 
  */
-function unLockSubmitBtn(isValidEmail, isValidPassword) {
-  if (isValidEmail && isValidPassword) {
+function unLockSubmitBtn(isValidValues) {
+  if (isValidValues.name && isValidValues.email && isValidValues.password) {
     $('#submitBtn').removeClass('disabled');
   } else {
     $('#submitBtn').addClass('disabled');
@@ -78,12 +89,7 @@ function validRequired($node) {
     $node.removeClass('success');
     $node.addClass('alert');
     return false
-  } else {
-    $node.siblings('.form-area__group__alert').text('');
-    $node.removeClass('alert');
-    $node.addClass('success');
   }
-
   return true
 }
 
@@ -101,7 +107,6 @@ function validTypeEmail($node) {
     $node.addClass('alert');
     return false;
   }
-
   return true;
 }
 
@@ -134,7 +139,6 @@ function validMinLen($node, min) {
     $node.addClass('alert');
     return false;
   }
-
   return true;
 }
 
@@ -152,4 +156,16 @@ function validMaxLen($node) {
     return false
   }
   return true
+}
+
+/**
+ * フォームの送信チェック
+ * @param {*} event
+ * @param {*} isValidValues
+ */
+function checkFormSending(event, isValidValues) {
+  if (!(isValidValues.name && isValidValues.email && isValidValues.password)) {
+    //バリデーションが不完全なら送信しない
+    event.preventDefault();
+  }
 }
