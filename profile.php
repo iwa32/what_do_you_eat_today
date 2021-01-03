@@ -1,7 +1,19 @@
-<?php require("head.php") ?>
+<?php
+require('function.php');
+debug('「「「「「「「「「「「「「「');
+debug('プロフィールページ');
+debugLogStart();
+
+require('auth.php');
+?>
+
+<?php
+$siteTitle = 'プロフィール';
+require("head.php");;
+?>
 
 <body>
-  <?php require("header.php") ?>
+  <?php require("header.php");; ?>
 
   <main class="contents">
     <div class="main-container container">

@@ -5,7 +5,6 @@ require('function.php');
 //デバッグ
 debug('「「「「「「「「「「「「「「「「');
 debug('ログインページ');
-
 debugLogStart();
 
 //認証チェック
@@ -17,6 +16,7 @@ if (!empty($_POST)) {
   debug('POST送信されました。');
   $email = $_POST['email'];
   $password = $_POST['password'];
+  $password_save = !empty($_POST['password_save']) ? true: false;
 
   //バリデーション
   debug('バリデーション開始');
@@ -47,7 +47,26 @@ if (!empty($_POST)) {
         //パスワードの照合
 
         debug('パスワードが一致しました。');
-        
+        //セッションにユーザー情報を保存
+        //デフォルト有効期限は1時間
+        $sessionLimit = 60 * 60;
+        if ($password_save) {
+
+          debug('ログインを保持します。');
+          //有効期限を30日にする。
+          $_SESSION['login_limit'] = $sessionLimit * 24 * 30;
+
+        } else {
+
+          debug('ログインを保持しません。');
+          $_SESSION['login_limit'] = $sessionLimit;
+        }
+
+        $_SESSION['login_date'] = time();
+        $_SESSION['user_id'] = $result['id'];
+
+        //マイページへ
+        header('Location:my_page.php');   
       } else {
 
         debug('パスワードが一致しませんでした。');
@@ -58,18 +77,19 @@ if (!empty($_POST)) {
       debug('システムエラー' . $e->getMessage());
       $err_msg['common'] = MSG_SYS_ERROR;
     }
-    //セッションにデータを保存
-    //リダイレクト
   }
 }
 
 ?>
 
 
-<?php require("head.php") ?>
+<?php
+$siteTitle = 'ログイン';
+require("head.php");
+?>
 
 <body>
-  <?php require("header.php") ?>
+  <?php require("header.php"); ?>
 
   <main class="contents">
     <div class="main-container container">
