@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>今日は何食べる？</title>
+  <title><?php echo $siteTitle; ?> | 今日は何食べる？</title>
   <link rel="stylesheet" href="./css/style.css">
   <!-- google-fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com">

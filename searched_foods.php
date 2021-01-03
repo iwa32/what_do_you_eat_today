@@ -1,7 +1,7 @@
-<?php require("head.php") ?>
+<?php require("head.php"); ?>
 
 <body>
-  <?php require("header.php") ?>
+  <?php require("header.php"); ?>
 
   <main class="contents">
     <div class="main-container container">

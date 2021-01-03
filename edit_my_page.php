@@ -1,7 +1,10 @@
-<?php require("head.php") ?>
+<?php
+$siteTitle = 'プロフィール編集';
+require("head.php");
+?>
 
 <body>
-  <?php require("header.php") ?>
+  <?php require("header.php"); ?>
 
   <main class="contents">
     <div class="main-container container">
