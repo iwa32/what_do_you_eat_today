@@ -13,6 +13,8 @@
       ?>
         <li><a href="./my_page.php">マイページ</a></li>
         <li><a href="./logout.php">ログアウト</a></li>
+        <li><a href="./logout.php">退会する</a></li>
+        <!-- スマホ時の文字サイズを調整する -->
       <?php } ?>
       </ul>
     </nav>
