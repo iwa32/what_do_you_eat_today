@@ -1,7 +1,6 @@
 <?php
 //ログイン認証
 if (!empty($_SESSION['login_date'])) {
-
   debug('ログインユーザーです。');
 
   if (($_SESSION['login_date'] + $_SESSION['login_limit']) < time()) {
@@ -16,7 +15,7 @@ if (!empty($_SESSION['login_date'])) {
     debug("有効期限内ユーザーです。");
     //ログイン日時を更新
     $_SESSION['login_date'] = time();
-    if (basename($_SERVER['PHP_SELF']) !== 'my_page.php') {
+    if (basename($_SERVER['PHP_SELF']) === 'login.php') {
 
       header('Location:my_page.php');
     }
