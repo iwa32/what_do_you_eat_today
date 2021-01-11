@@ -46,4 +46,8 @@ $(function () {
     checkFormSending(event, isValidValues);
   })
 
+  $('#loginForm').on('submit', function (event) {
+    checkFormSending(event, isValidValues);
+  })
+
 })
