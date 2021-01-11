@@ -27,27 +27,36 @@ $(function () {
     password: false
   };
 
+  //お名前
   $('#name').on('change', function () {
     isValidValues.name = validName($(this));
     unLockSubmitBtn(isValidValues);
   });
 
+  //Eメール
   $('#email').on('change', function () {
     isValidValues.email = validEmail($(this));
     unLockSubmitBtn(isValidValues);
   });
 
+  //パスワード
   $('#password').on('change', function () {
     isValidValues.password = validPassword($(this));
     unLockSubmitBtn(isValidValues);
   });
 
+  //会員登録
   $('#signUpForm').on('submit', function (event) {
     checkFormSending(event, isValidValues);
   })
 
+  //ログイン
   $('#loginForm').on('submit', function (event) {
     checkFormSending(event, isValidValues);
   })
 
+  //ユーザーのメッセージ
+  $('#myMessage').on('input', function() {
+    validMessage($(this));
+  })
 })

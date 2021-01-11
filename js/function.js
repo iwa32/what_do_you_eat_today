@@ -16,7 +16,7 @@ function selectNextGenre($prev, $next) {
 function validName($node) {
   let successes = [];
 
-  successes.push(validMaxLen($node));
+  successes.push(validMaxLen($node, 256));
   return isAllSuccess(successes, $node);
 }
 
@@ -25,10 +25,9 @@ function validName($node) {
  * @param {*} $node
  */
 function validEmail($node) {
-
   if (validRequired($node)) {
     let successes = [];
-    successes.push(validMaxLen($node));
+    successes.push(validMaxLen($node, 256));
     successes.push(validTypeEmail($node));
     return isAllSuccess(successes, $node);
   }
@@ -40,14 +39,36 @@ function validEmail($node) {
  * @param {*} $node
  */
 function validPassword($node) {
+
   if (validRequired($node)) {
     let successes = [];
     successes.push(validMinLen($node, 5));
-    successes.push(validMaxLen($node));
+    successes.push(validMaxLen($node, 256));
     successes.push(validHalf($node));
+
     return isAllSuccess(successes, $node);
   }
   return false;
+}
+
+/**
+ * メッセージチェック
+ * @param {*} $node
+ */
+function validMessage($node) {
+  validMaxLen($node, 1000);
+  messageCount($node);
+}
+
+/**
+ * メッセージのカウントをする
+ * @param {*} $node 
+ */
+function messageCount($node) {
+  let value = $node.val();
+  let $targetNode = $node.siblings('.form-area__group__place-holder').children('.count');
+
+  $targetNode.text(value.length);
 }
 
 /**
@@ -70,6 +91,7 @@ function isAllSuccess(successes, $node) {
  * @param {*} isValidValues 
  */
 function unLockSubmitBtn(isValidValues) {
+
   if (isValidValues.name && isValidValues.email && isValidValues.password) {
     $('#submitBtn').removeClass('disabled');
   } else {
@@ -145,12 +167,12 @@ function validMinLen($node, min) {
 /**
  *　最大文字数チェック
  * @param {*} $node
- * @param {*} field
+ * @param {*} maxNum
  */
-function validMaxLen($node) {
+function validMaxLen($node, maxNum) {
   let value = $node.val();
-  if (value.length >= 256) {
-    $node.siblings('.form-area__group__alert').text(MSG_MAX);
+  if (value.length >= maxNum) {
+    $node.siblings('.form-area__group__alert').text(maxNum + MSG_MAX);
     $node.removeClass('success');
     $node.addClass('alert');
     return false
@@ -159,7 +181,7 @@ function validMaxLen($node) {
 }
 
 /**
- * フォームの送信チェック
+ * フォームの送信チェック, Enter送信時にもバリデーションチェックする
  * @param {*} event
  * @param {*} isValidValues
  */
