@@ -33,7 +33,7 @@ if (!empty($_POST)) {
 
     debug('バリデーションOK');
     try {
-      $sql = 'SELECT password,id FROM users WHERE email = :email';
+      $sql = 'SELECT password,id FROM users WHERE email = :email AND deleted_at IS NULL';
       $pdo = dbConnect();
       $data = [
         ':email' => $email
@@ -66,7 +66,7 @@ if (!empty($_POST)) {
         $_SESSION['user_id'] = $result['id'];
 
         //マイページへ
-        header('Location:my_page.php');   
+        header('Location:my_page.php');
       } else {
 
         debug('パスワードが一致しませんでした。');

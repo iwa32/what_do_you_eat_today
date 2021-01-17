@@ -29,7 +29,7 @@ if (!empty($_POST)) {
 
       try {
         $pdo = dbConnect();
-        $sql = 'INSERT INTO users (name, email, password) VALUES (:name, :email, :password)';
+        $sql = 'INSERT INTO users (name, email, password) VALUES (:name, :email, :password) WHERE deleted_at IS NULL';
 
         $data = [
           ':name' => $name,

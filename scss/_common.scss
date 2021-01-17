@@ -115,10 +115,31 @@ body {
   }
 }
 
+/*edit*/
 .edit-btn {
   background: $edit-btn-color;
   color: #fff;
 }
+
+/*withdraw*/
+.with-draw-page {
+  &__title {
+    font-size: $base-font-size;
+    margin-bottom: 40px;
+  }
+
+  &__btns {
+    text-align: center;
+  }
+
+  &__btn {
+    background-color: #888888;
+    color: #ffffff;
+    font-size: $base-font-size;
+    padding: 10px 60px;
+  }
+}
+
 
 /*footer*/
 .g-footer {
@@ -168,18 +189,22 @@ body {
       border: 1px solid;
       padding: 2px 4px;
       width: 100%;
+
       &.alert {
         border: 1px solid $alert-color;
       }
-      &.success  {
+
+      &.success {
         border: 1px solid $success-color;
       }
     }
 
     &__checkbox-area {
       display: flex;
-      align-items:center;
+      align-items: center;
+      width: fit-content;
     }
+
     &__check {
       margin-right: 6px;
       width: 16px;

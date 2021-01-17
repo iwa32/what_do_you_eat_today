@@ -21,8 +21,8 @@ function debug($str)
 function debugLogStart()
 {
   debug('>>>>>>>>>>>>>>>>>>>画面表示開始');
-  debug('セッションid:'. session_id());
-  debug('セッション変数の中身:'. print_r($_SESSION, true));
+  debug('セッションid:' . session_id());
+  debug('セッション変数の中身:' . print_r($_SESSION, true));
   debug('現在日時' . time());
   if (!empty($_SESSION['login_date']) && !empty($_SESSION['login_limit'])) {
     debug('ログイン日時の有効期限' . ($_SESSION['login_date'] + $_SESSION['login_limit']));
@@ -49,7 +49,7 @@ define('MSG_REQUIRED', '入力必須です。');
 define('MSG_EMAIL_TYPE', 'Eメール形式で入力してください。');
 define('MSG_EMAIL_DUP', 'そのEメールは既に登録されています。');
 define('MSG_MIN', '5文字以上で入力してください。');
-define('MSG_MAX', '256文字以内で入力してください。');
+define('MSG_MAX', '文字以内で入力してください。');
 define('MSG_HALF', '半角英数字で入力してください。');
 define('MSG_SYS_ERROR', 'システムエラーが発生しました。しばらくお待ちください。');
 define('MSG_NO_MATCH', 'Eメールアドレスまたはパスワードが間違っています。');
@@ -68,11 +68,11 @@ function validRequired($value, $key)
 /**
  * 最大文字数チェック
  */
-function validMaxLen($value, $key)
+function validMaxLen($value, $key, $max = 256)
 {
-  if (mb_strlen($value) >= 256) {
+  if (mb_strlen($value) >= $max) {
     global $err_msg;
-    $err_msg[$key] = MSG_MAX;
+    $err_msg[$key] = $max . MSG_MAX;
   }
 }
 
@@ -104,7 +104,7 @@ function validTypeEmail($value)
 function validEmailDup($email)
 {
   $pdo = dbConnect();
-  $sql = 'SELECT count(*) as count FROM users WHERE email = :email';
+  $sql = 'SELECT count(*) as count FROM users WHERE email = :email AND deleted_at IS NULL';
   $data = [
     ':email' => $email
   ];
@@ -161,4 +161,74 @@ function queryPost($pdo, $sql, $data)
   $stmt->execute($data);
 
   return $stmt;
+}
+
+/**
+ * ユーザー情報を取得
+ */
+function getUser($userId)
+{
+  try {
+
+    debug('ユーザー情報を取得');
+    $pdo = dbConnect();
+    $sql = 'SELECT * FROM users WHERE id = :user_id';
+    $data = [':user_id' => $userId];
+    $stmt = queryPost($pdo, $sql, $data);
+
+    if ($stmt) {
+      debug('クエリに成功しました。');
+    } else {
+      debug('クエリに失敗しました。');
+    }
+  } catch (PDOException $e) {
+
+    error_log('エラー発生:' . $e->getMessage());
+    header('Location:login.php');
+  }
+
+  return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+/**
+ * フォーム入力保持, エラー時POSTの内容を保持する
+ */
+function getFormData($key)
+{
+  global $dbFormData;
+  global $err_msg;
+
+  if (!empty($dbFormData)) {
+
+    //ユーザー情報があるとき
+    if (!empty($err_msg[$key])) {
+
+      //エラーがある時
+      if (!empty($_POST[$key])) {
+
+        //POSTの内容を表示
+        return $_POST[$key];
+      } else {
+
+        //POSTが存在し、DBの情報と違うならPOSTの情報を表示する
+        if (!empty($_POST[$key]) && $_POST[$key] !== $dbFormData[$key]) {
+
+          return $_POST[$key];
+        } else {
+
+          //そもそも変更がない場合
+          return $dbFormData[$key];
+        }
+      }
+    } else {
+
+      return $dbFormData[$key];
+    }
+  } else {
+
+    //POSTがあるとき
+    if (!empty($_POST[$key])) {
+      return $_POST[$key];
+    }
+  }
 }
