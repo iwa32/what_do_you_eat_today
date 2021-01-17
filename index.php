@@ -1,4 +1,32 @@
 <?php
+
+require('function.php');
+debug('「「「「「「「「「「「「');
+debug('ジャンル選択(index)');
+debugLogStart();
+
+//カテゴリーを取得する
+try {
+  $pdo = dbConnect();
+  $sql1 = 'SELECT id, name FROM food_categories WHERE deleted_at IS NULL';
+  $stmt = queryPost($pdo, $sql1, []);
+  $mainCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  debug('カテゴリーの中身:' . print_r($mainCategories, true));
+
+  if (!empty($mainCategories)) {
+    //サブカテゴリーを取得する
+    $pdo = dbConnect();
+    $sql2 = 'SELECT id, name FROM food_sub_categories WHERE deleted_at IS NULL';
+    $stmt = queryPost($pdo, $sql2, []);
+    $subCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+} catch (Exception $e) {
+  error_log('エラー発生:' . $e->getMessage());
+  $err_msg['common'] = MSG_SYS_ERROR;
+}
+
+?>
+<?php
 $siteTitle = 'ジャンルを選んでね。';
 require("head.php");
 ?>
@@ -11,25 +39,31 @@ require("head.php");
       <div class="eat-selects">
         <h2 class="eat-selects__title">ジャンルを選んでね</h2>
 
+        <div class="eat-selects__alert"><?php if (!empty($err_msg['common'])) echo $err_msg['common']; ?></div>
+
         <div class="first-select eat-select" id="firstSelect">
           <ul class="eat-select__lists">
-            <li class="eat-select__list eat-select__list--lunch">ランチ</li>
-            <li class="eat-select__list eat-select__list--dinner">ディナー</li>
+            <?php if (!empty($mainCategories)) : ?>
+              <?php foreach ($mainCategories as $mainCategory) : ?>
+                <li class="eat-select__list 
+                <?php if (!empty($mainCategory['id'])) echo 'eat-select__list--main-' . $mainCategory['id']; ?>">
+                  <?php if (!empty($mainCategory['name'])) echo $mainCategory['name']; ?>
+                </li>
+              <?php endforeach; ?>
+            <?php endif; ?>
           </ul>
         </div>
 
         <div class="second-select eat-select" id="secondSelect">
           <ul class="eat-select__lists">
-            <li class="eat-select__list eat-select__list--meat">肉</li>
-            <!-- <li class="eat-select__list test">肉
-              <p><img src="./img/niku01_b_02.png" alt="お肉"></p>
-            </li> -->
-
-            <li class="eat-select__list eat-select__list--fish">魚</li>
-            <li class="eat-select__list eat-select__list--noodles">麺</li>
-            <li class="eat-select__list eat-select__list--bread">パン</li>
-            <li class="eat-select__list eat-select__list--rice">米</li>
-            <li class="eat-select__list eat-select__list--dessert">デザート</li>
+            <?php if (!empty($subCategories)) : ?>
+              <?php foreach ($subCategories as $subCategory) : ?>
+                <li class="eat-select__list
+                <?php if (!empty($subCategory['id'])) echo 'eat-select__list--sub-' . $subCategory['id']; ?>">
+                  <?php if (!empty($subCategory['name'])) echo $subCategory['name']; ?>
+                </li>
+              <?php endforeach; ?>
+            <?php endif; ?>
           </ul>
         </div>
 

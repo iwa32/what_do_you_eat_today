@@ -5,10 +5,19 @@
     margin-bottom: 30px;
   }
 
+  &__alert {
+    font-size: $base-font-size;
+    color: $alert-color;
+  }
+
   @include sp {
     &__title {
       font-size: $head-font-size_sp;
       margin-bottom: 15px;
+    }
+
+    &__alert {
+      font-size: $base-font-size_sp;
     }
   }
 }
@@ -38,35 +47,67 @@
       margin-bottom: 0;
     }
 
-    &--lunch {
+    // &--lunch {
+    //   background: #FFBB00;
+    // }
+
+    &--main-1 {
       background: #FFBB00;
     }
 
-    &--dinner {
+    // &--dinner {
+    //   background: #336B87;
+    // }
+
+    &--main-2 {
       background: #336B87;
     }
 
-    &--meat {
+    // &--meat {
+    //   background: #FD724F;
+    // }
+
+    &--sub-1 {
       background: #FD724F;
     }
 
-    &--fish {
+    // &--fish {
+    //   background: #4599CB;
+    // }
+
+    &--sub-2 {
       background: #4599CB;
     }
 
-    &--noodles {
+    // &--noodles {
+    //   background: #F7A100;
+    // }
+
+    &--sub-3 {
       background: #F7A100;
     }
 
-    &--bread {
+    // &--bread {
+    //   background: #D8933A;
+    // }
+
+    &--sub-4 {
       background: #D8933A;
     }
 
-    &--rice {
+    // &--rice {
+    //   background: #F8F8F8;
+    // }
+
+    &--sub-5 {
       background: #F8F8F8;
     }
 
-    &--dessert {
+    // &--dessert {
+    //   background: #F0ABC8;
+    // }
+
+    &--sub-6 {
       background: #F0ABC8;
     }
   }
