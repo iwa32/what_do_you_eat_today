@@ -42,7 +42,7 @@
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | 
 |  1  | レビューid   |  id  |  integer  |  ×  |    |    | 
 |  2  | ユーザid  |  user_id  |  integer  |  ×  |    |    | 
-|  3  | フードid   |  food_id  |  integer  |  ×  |    |    | 
+|  3  | フードid   |  food_id  |  varchar  |  ×  |    |    | 
 |  4  | コメント  |  comment  |  text  |  ×  |    |    | 
 |  5  | スコア   |  score  |  integer  |  ×  |    |    | 
 |  6  |  削除日  |  deleted_at  |  timestamp  |  ○  |    |    | 
@@ -57,7 +57,7 @@
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | 
 |  1  | お気に入りid   |  id  |  integer  |  ×  |    |    | 
 |  2  | ユーザid  |  user_id  |  integer  |  ×  |    |    | 
-|  3  | フードid   |  food_id  |  integer  |  ×  |    |    | 
+|  3  | フードid   |  food_id  |  varchar  |  ×  |    |    | 
 |  4  |  削除日  |  deleted_at  |  timestamp  |  ○  |    |    | 
 |  5  |  作成日  |  created_at  |  timestamp  |  ○  |    |    | 
 |  6  |  更新日  |  updated_at  |  timestamp  |  ○  |    |    | 
@@ -70,7 +70,7 @@
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | 
 |  1  | 履歴id   |  id  |  integer  |  ×  |    |    | 
 |  2  | ユーザid  |  user_id  |  integer  |  ×  |    |    | 
-|  3  | フードid   |  food_id  |  integer  |  ×  |    |    | 
+|  3  | フードid   |  food_id  |  varchar  |  ×  |    |    | 
 |  4  |  削除日  |  deleted_at  |  timestamp  |  ○  |    |    | 
 |  5  |  作成日  |  created_at  |  timestamp  |  ○  |    |    | 
 |  6  |  更新日  |  updated_at  |  timestamp  |  ○  |    |    | 
