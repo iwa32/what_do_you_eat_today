@@ -96,16 +96,16 @@ require("head.php");
       <div class="form-area">
         <h2 class="form-area__title">ログイン</h2>
 
-        <form action="" method="POST" id="loginForm">
+        <form action="" method="POST" id="authForm">
           <div class="form-area__group">
-            <div class="form-area__group__alert"><?php if (!empty($err_msg['common'])) echo $err_msg['common'] ?></div>
+            <div class="form-area__group__alert"><?php echo getErrMsg('common'); ?></div>
           </div>
           <div class="form-area__group">
             <label for="email">
               <div class="form-area__group__name">Eメール<span class="form-area__group__badge form-area__group__badge--required">[必須]</span></div>
               <div class="form-area__group__help">Eメール形式で入力してください</div>
               <input class="form-area__group__input" type="text" name="email" id="email"　value="<?php if(!empty($_POST['email'])) echo $_POST['email']; ?>">
-              <div class="form-area__group__alert"><?php if(!empty($err_msg['email'])) echo $err_msg['email']; ?></div>
+              <div class="form-area__group__alert"><?php echo getErrMsg('email'); ?></div>
               <div class="form-area__group__place-holder">you@example.com</div>
             </label>
           </div>
@@ -115,7 +115,7 @@ require("head.php");
               <div class="form-area__group__name">パスワード<span class="form-area__group__badge form-area__group__badge--required">[必須]</span></div>
               <div class="form-area__group__help">パスワードは5文字以上で入力してください</div>
               <input class="form-area__group__input" type="password" name="password" id="password" value="<?php if(!empty($_POST['password'])) echo $_POST['password']; ?>">
-              <div class="form-area__group__alert"><?php if(!empty($err_msg['password'])) echo $err_msg['password']; ?></div>
+              <div class="form-area__group__alert"><?php echo getErrMsg('password'); ?></div>
             </label>
           </div>
 
@@ -126,13 +126,15 @@ require("head.php");
             </label>
           </div>
 
+          <a href="./remind_pass.php">パスワードをお忘れの方はこちらへ</a>
+
           <div class="form-area__btn-group">
             <div class="form-area__btn--wrapp">
-              <button class="form-area__btn form-area__btn--normal disabled" id="submitBtn">ログインする</button>
+              <button class="form-area__auth-btn form-area__auth-btn--normal disabled" id="submitBtn">ログインする</button>
             </div>
 
             <div class="form-area__btn--wrapp">
-              <button class="form-area__btn form-area__btn--twitter">Sign in with Twitter</button>
+              <button class="form-area__auth-btn form-area__auth-btn--twitter">Sign in with Twitter</button>
             </div>
           </div>
         </form>
