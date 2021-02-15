@@ -5,20 +5,14 @@ debug('「「「「「「「「「「「「');
 debug('ジャンル選択(index)');
 debugLogStart();
 
-//カテゴリーを取得する
 try {
-  $pdo = dbConnect();
-  $sql1 = 'SELECT id, name FROM food_categories WHERE deleted_at IS NULL';
-  $stmt = queryPost($pdo, $sql1, []);
-  $mainCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  debug('カテゴリーの中身:' . print_r($mainCategories, true));
+  //カテゴリーを取得する
+  $mainCategories = getMainCategories();
 
   if (!empty($mainCategories)) {
+
     //サブカテゴリーを取得する
-    $pdo = dbConnect();
-    $sql2 = 'SELECT id, name FROM food_sub_categories WHERE deleted_at IS NULL';
-    $stmt = queryPost($pdo, $sql2, []);
-    $subCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $subCategories = getSubCategories();
   }
 } catch (Exception $e) {
   error_log('エラー発生:' . $e->getMessage());
@@ -67,91 +61,16 @@ require("head.php");
           </ul>
         </div>
 
-
         <div class="meal-search-result" id="mealSearchResult">
-          <p class="meal-search-result__found">候補のお店が○件見つかりました</p>
+          <p class="meal-search-result__found" id="mealSearchResultCount">候補のお店が○件見つかりました</p>
 
           <div class="meal-search-result__contents">
-            <ul class="meal-search-result__lists">
-              <li class="meal-search-result__list">
-                <div class="meal-search-result__details">
-                  <h3 class="meal-search-result__details__title">夢庵〇〇店</h3>
-
-                  <dl class="meal-search-result__details__info">
-                    <dt>住所</dt>
-                    <dd>fadfjasklf</dd>
-                    <dt>営業中</dt>
-                    <!--動的に変更-->
-                    <dd>07:00-19:00</dd>
-                    <dt>TEL</dt>
-                    <dd>01-2345-0789</dd>
-                  </dl>
-                </div>
-                <p class="meal-search-result__list__img"><img src="http://placehold.jp/120x120.png"></p>
-                <i class="fa fa-heart meal-search-result__list__favorite" aria-hidden="true"></i>
-              </li>
-
-              <li class="meal-search-result__list">
-                <div class="meal-search-result__details">
-                  <h3 class="meal-search-result__details__title">夢庵〇〇店</h3>
-
-                  <dl class="meal-search-result__details__info">
-                    <dt>住所</dt>
-                    <dd>fadfjasklf</dd>
-                    <dt>営業中</dt>
-                    <!--動的に変更-->
-                    <dd>07:00-19:00</dd>
-                    <dt>TEL</dt>
-                    <dd>01-2345-0789</dd>
-                  </dl>
-                </div>
-
-                <p class="meal-search-result__list__img"><img src="http://placehold.jp/120x120.png"></p>
-              </li>
-
-              <li class="meal-search-result__list">
-                <div class="meal-search-result__details">
-                  <h3 class="meal-search-result__details__title">夢庵〇〇店</h3>
-
-                  <dl class="meal-search-result__details__info">
-                    <dt>住所</dt>
-                    <dd>fadfjasklf</dd>
-                    <dt>営業中</dt>
-                    <!--動的に変更-->
-                    <dd>07:00-19:00</dd>
-                    <dt>TEL</dt>
-                    <dd>01-2345-0789</dd>
-                  </dl>
-                </div>
-
-                <p class="meal-search-result__list__img"><img src="http://placehold.jp/120x120.png"></p>
-              </li>
-
-              <li class="meal-search-result__list">
-                <div class="meal-search-result__details">
-                  <h3 class="meal-search-result__details__title">夢庵〇〇店</h3>
-
-                  <dl class="meal-search-result__details__info">
-                    <dt>住所</dt>
-                    <dd>fadfjasklf</dd>
-                    <dt>営業中</dt>
-                    <!--動的に変更-->
-                    <dd>07:00-19:00</dd>
-                    <dt>TEL</dt>
-                    <dd>01-2345-0789</dd>
-                  </dl>
-                </div>
-
-                <p class="meal-search-result__list__img"><img src="http://placehold.jp/120x120.png"></p>
-              </li>
+            <ul class="meal-search-result__lists" id="mealSearchResultLists">
             </ul>
             <!-- ※3件以上あったらスクロールできることを示唆するアイコンを表示する -->
 
-            <div class="meal-search-result__g-map">
-              g-map
-              候補をホバーするとピンが移動する?
+            <div class="meal-search-result__g-map" id="map">
             </div>
-            <!-- ↑googlemapになる -->
           </div>
 
 
