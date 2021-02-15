@@ -43,14 +43,14 @@ if (!empty($_POST)) {
     debug('リクエストデータ' . print_r($_POST, true));
     try {
       $pdo = dbConnect();
-      $sql = 'UPDATE users SET name = :name, email = :email, message = :message, updated_at = :updated_at WHERE id = :user_id';
+      $sql = 'UPDATE users SET name = :name, email = :email, message = :message, updated_at = :updated_at WHERE id = :u_id';
 
       $data = [
         ':name' => $name,
         ':email' => $email,
         ':message' => $message,
         ':updated_at' => date('Y-m-d H:i:s'),
-        ':user_id' => $_SESSION['user_id']
+        ':u_id' => $_SESSION['user_id']
       ];
       $stmt = queryPost($pdo, $sql, $data);
 
@@ -91,7 +91,7 @@ require("head.php");
 
         <form action="" method="POST">
 
-          <div class="form-area__group__alert"><?php if (!empty($err_msg['common'])) echo $err_msg['common']; ?></div>
+          <div class="form-area__group__alert"><?php echo getErrMsg('common'); ?></div>
           <!-- プレビュー -->
           <div class="form-area__group">
             <p class="edit-my-page__thum-img">
@@ -103,8 +103,8 @@ require("head.php");
           <div class="form-area__group">
             <label for="name">
               <div class="form-area__group__name">お名前<span class="form-area__group__badge form-area__group__badge--normal">[任意]</span></div>
-              <input class="form-area__group__input" type="text" name="name" id="name" value="<?php if (!empty(getFormData('name'))) echo getFormData('name'); ?>">
-              <div class="form-area__group__alert"><?php if (!empty($err_msg['name'])) echo $err_msg['name']; ?></div>
+              <input class="form-area__group__input" type="text" name="name" id="name" value="<?php echo getFormData('name'); ?>">
+              <div class="form-area__group__alert"><?php echo getErrMsg('name'); ?></div>
               <div class="form-area__group__place-holder">山田太郎</div>
             </label>
           </div>
@@ -113,7 +113,7 @@ require("head.php");
             <label for="email">
               <div class="form-area__group__name">Eメール<span class="form-area__group__badge form-area__group__badge--required">[必須]</span></div>
               <div class="form-area__group__help">Eメール形式で入力してください</div>
-              <input class="form-area__group__input" type="text" name="email" id="email" value="<?php if (!empty(getFormData('email'))) echo getFormData('email'); ?>">
+              <input class="form-area__group__input" type="text" name="email" id="email" value="<?php echo getFormData('email'); ?>">
               <div class="form-area__group__alert"><?php if (!empty($err_msg['email'])) echo $err_msg['email']; ?></div>
               <div class="form-area__group__place-holder">you@example.com</div>
             </label>
@@ -123,7 +123,7 @@ require("head.php");
             <label for="message">
               <div class="form-area__group__name">メッセージ<span class="form-area__group__badge form-area__group__badge--normal">[任意]</span></div>
               <div class="form-area__group__help">1000文字まで入力可能です。</div>
-              <textarea class="form-area__group__input edit-my-page__message" type="text" name="message" id="myMessage"><?php if (!empty(getFormData('message'))) echo getFormData('message'); ?></textarea>
+              <textarea class="form-area__group__input edit-my-page__message" type="text" name="message" id="myMessage"><?php echo getFormData('message'); ?></textarea>
               <div class="form-area__group__alert"><?php if (!empty($err_msg['message'])) echo $err_msg['message']; ?></div>
               <div class="form-area__group__place-holder">
                 <span class="count">0</span>/1000
@@ -131,7 +131,7 @@ require("head.php");
             </label>
           </div>
 
-          <div class="edit-my-page__btns"><button class="edit-btn btn">編集する</button></div>
+          <div class="edit-btns"><button class="edit-btn btn">編集する</button></div>
         </form>
       </div>
     </div>
