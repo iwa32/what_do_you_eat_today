@@ -10,10 +10,6 @@
     min-height: 120px;
   }
 
-  &__btns {
-    text-align: right;
-  }
-
   @include sp {
     &__thum-img {
       max-width: 120px;
