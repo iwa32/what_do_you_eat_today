@@ -20,3 +20,14 @@
     </nav>
   </div>
 </header>
+
+<div class="loading" id="loadingBg">
+  <div class="loading__loader" id="loader">
+    <div class="loading__circle">
+      <img src="./img/loader.svg" alt="ローディング">
+    </div>
+    <div class="loading__text">
+      loading...
+    </div>
+  </div>
+</div>
