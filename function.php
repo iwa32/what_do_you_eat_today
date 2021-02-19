@@ -50,9 +50,17 @@ define('MSG_EMAIL_TYPE', 'Eメール形式で入力してください。');
 define('MSG_EMAIL_DUP', 'そのEメールは既に登録されています。');
 define('MSG_MIN', '5文字以上で入力してください。');
 define('MSG_MAX', '文字以内で入力してください。');
+define('MSG_FIXED', '文字で入力してください。');
 define('MSG_HALF', '半角英数字で入力してください。');
 define('MSG_SYS_ERROR', 'システムエラーが発生しました。しばらくお待ちください。');
 define('MSG_NO_MATCH', 'Eメールアドレスまたはパスワードが間違っています。');
+define('MSG_NO_MATCH_CURRENT_PASS', '現在のパスワードが違います。');
+define('MSG_SAME_CURRENT_PASS', '現在のパスワードと同じです。');
+define('MSG_RETYPE_NOT_MATCH', '再入力があっていません。');
+define('MSG_EXPIRED', '有効期限切れです。');
+define('MSG_AUTH_IS_INCORRECT', '認証キーが正しくありません。');
+define('SUC_SENDED_MAIL', 'メールを送信しました。');
+
 
 /**
  * 未入力チェック
@@ -129,6 +137,42 @@ function validHalf($value, $key)
 }
 
 /**
+ * パスワードチェック
+ */
+function validPass($value, $key)
+{
+  //最小文字数チェック
+  validMinLen($value, $key);
+  //最大文字数チェック
+  validMaxLen($value, $key);
+  //半角英数字チェック
+  validHalf($value, $key);
+}
+
+
+/**
+ * 入力内容が一致しているか確認
+ */
+function validMatch($value1, $value2, $key)
+{
+  global $err_msg;
+  if ($value1 !== $value2) {
+    return $err_msg[$key] = MSG_RETYPE_NOT_MATCH;
+  }
+}
+
+/**
+ * 固定長チェック
+ */
+function validLength($value, $key, $length = 8)
+{
+  if (mb_strlen($value) !== $length) {
+    global $err_msg;
+    $err_msg[$key] = $length . MSG_FIXED;
+  }
+}
+
+/**
  * DB接続処理
  */
 function dbConnect()
@@ -155,7 +199,7 @@ function dbConnect()
 /**
  * SQL実行処理
  */
-function queryPost($pdo, $sql, $data)
+function queryPost($pdo, $sql, $data = [])
 {
   $stmt = $pdo->prepare($sql);
   $stmt->execute($data);
@@ -172,8 +216,8 @@ function getUser($userId)
 
     debug('ユーザー情報を取得');
     $pdo = dbConnect();
-    $sql = 'SELECT * FROM users WHERE id = :user_id';
-    $data = [':user_id' => $userId];
+    $sql = 'SELECT * FROM users WHERE id = :u_id AND deleted_at IS NULL';
+    $data = [':u_id' => $userId];
     $stmt = queryPost($pdo, $sql, $data);
 
     if ($stmt) {
@@ -199,7 +243,6 @@ function getFormData($key)
   global $err_msg;
 
   if (!empty($dbFormData)) {
-
     //ユーザー情報があるとき
     if (!empty($err_msg[$key])) {
 
@@ -225,10 +268,77 @@ function getFormData($key)
       return $dbFormData[$key];
     }
   } else {
-
     //POSTがあるとき
     if (!empty($_POST[$key])) {
       return $_POST[$key];
     }
   }
+}
+
+/**
+ * エラーメッセージ表示
+ */
+function getErrMsg($key)
+{
+  global $err_msg;
+
+  if (!empty($err_msg[$key])) {
+    return $err_msg[$key];
+  }
+}
+
+/**
+ * カテゴリーを取得する
+ */
+function getMainCategories()
+{
+  $pdo = dbConnect();
+  $sql = 'SELECT id, name FROM food_categories WHERE deleted_at IS NULL';
+  $stmt = queryPost($pdo, $sql);
+  $mainCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  debug('カテゴリーの中身:' . print_r($mainCategories, true));
+
+  return $mainCategories;
+}
+
+/**
+ * サブカテゴリーを取得する
+ */
+function getSubCategories()
+{
+  $pdo = dbConnect();
+  $sql = 'SELECT id, name FROM food_sub_categories WHERE deleted_at IS NULL';
+  $stmt = queryPost($pdo, $sql);
+  $subCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  debug('サブカテゴリーの中身:' . print_r($subCategories, true));
+
+  return $subCategories;
+}
+
+/**
+ * メール送信
+ */
+function sendMail($to, $subject, $message, $from)
+{
+  if (!empty($to) && !empty($subject) && !empty($message) && !empty($from)) {
+    //使用言語の指定
+    mb_language('Japanese');
+    //文字コードの指定
+    mb_internal_encoding('UTF-8');
+
+    if (mb_send_mail($to, $subject, $message, 'From' . $from)) {
+      //メール送信
+      debug('メールが送信されました。');
+    } else {
+      debug('メールが送信されませんでした。');
+    }
+  }
+}
+
+/**
+ * ランダムな文字列で認証キーを生成する
+ */
+function generateRandomAuthKey($length = 8)
+{
+  return base_convert(mt_rand(pow(36, $length - 1), pow(36, $length) - 1), 10, 36);
 }
