@@ -75,7 +75,7 @@ $(function () {
     //再発行時はパスワードのバリデーションはしない
     isValidValues.password = true;
     unLockSubmitBtn(isValidValues);
-  })
+  });
 
   //パスワード
   $('#password').on('change', function () {
@@ -86,12 +86,32 @@ $(function () {
   //認証に使用するフォームのバリデーション無効時のEnter送信防止
   $('#authForm').on('submit', function (event) {
     checkFormSending(event, isValidValues);
-  })
+  });
 
   //ユーザーのメッセージ
   $('#myMessage').on('input', function () {
     validMessage($(this));
-  })
+  });
+
+  //プロフィール用の画像ファイルの読み込み
+  $('#myIcon').on('change', function(event) {
+    var $myIconImg = $('#myIconImg');
+    readingImageFile($myIconImg, event);
+  });
+
+  $('#imageArea').on('dragover', function(event) {
+    $(this).addClass('dragover');
+
+    event.stopPropagation();
+    event.preventDefault();
+  });
+
+  $('#imageArea').on('dragleave', function(event) {
+    $(this).removeClass('dragover');
+
+    event.stopPropagation();
+    event.preventDefault();
+  });
 });
 
 $(window).on('load', function () {

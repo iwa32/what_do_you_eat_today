@@ -680,3 +680,17 @@ function postMealFavorite(place_id, $node) {
     alert('システムにエラーが発生しました。時間を置いて再度ご登録ください。');
   });
 }
+
+/**
+ * 画像ファイルのプレビュー表示機能
+ * @param {*} $myIconImg 
+ * @param {*} event 
+ */
+function readingImageFile($myIconImg, event) {
+
+  var fileReader = new FileReader;
+  fileReader.onload = (function() {
+    $myIconImg.attr('src', fileReader.result);
+  });
+  fileReader.readAsDataURL(event.target.files[0]);
+}

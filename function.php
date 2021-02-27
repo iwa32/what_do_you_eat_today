@@ -342,3 +342,57 @@ function generateRandomAuthKey($length = 8)
 {
   return base_convert(mt_rand(pow(36, $length - 1), pow(36, $length) - 1), 10, 36);
 }
+
+/**
+ * 画像アップロード
+ */
+function uploadImage($file, $key)
+{
+  debug('ファイル情報' . print_r($file, true));
+  try {
+
+    //ファイルのバリデーション
+    if (isset($file['error']) && is_int($file['error'])) {
+      //エラーチェック
+      switch ($file['error']) {
+        case UPLOAD_ERR_OK://問題ない場合
+          break;
+        case UPLOAD_ERR_INI_SIZE://php.iniの最大サイズを超えた場合
+        case UPLOAD_ERR_FORM_SIZE://フォーム定義のMAX_FILE_SIZEを超えた場合
+          throw new RuntimeException('ファイルサイズが大きすぎます。');
+          break;
+        case UPLOAD_ERR_NO_FILE://ファイルが選択されなかった場合
+          throw new RuntimeException('ファイルが選択されていません。');
+          break;
+        default:
+          throw new RuntimeException('予期せぬエラーが発生しました。');
+      }
+    }
+
+    //画像形式チェック
+    //IMAGETYPEを取得
+    //形式判別がうまくできなかった場合、noticeエラーを発行するのでエラー制御演算子をつけてエラーメッセージを無視する
+    $type = @exif_imagetype($file['tmp_name']);
+    if (!in_array($type, [IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG], true)) {
+      throw new RuntimeException('画像形式が非対応です。');
+    }
+    //hash化
+    //IMAGE_TYPEを基に拡張子を取得
+    $path = 'uploads/' . sha1_file($file['tmp_name']) . image_type_to_extension($type, true);
+
+    //アップロード
+    if (!move_uploaded_file($file['tmp_name'], $path)) {
+      throw new RuntimeException('ファイルのアップロードに失敗しました。');
+    }
+    //パーミッションの変更
+    chmod($path, 0644);
+
+    return $path;
+
+  } catch (RuntimeException $e) {
+    //実行時にならないとわからないエラーをcatchする
+    error_log('ファイルのエラー発生' . $e->getMessage());
+    global $err_msg;
+    $err_msg[$key] = $e->getMessage();
+  }
+}
