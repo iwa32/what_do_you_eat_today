@@ -396,3 +396,23 @@ function uploadImage($file, $key)
     $err_msg[$key] = $e->getMessage();
   }
 }
+
+/**
+ * 画像の表示
+ */
+function showImg($path)
+{
+  if(!empty($path)) {
+    return $path;
+  } else {
+    return 'img/no_image.png';
+  }
+}
+
+/**
+ * エスケープ処理XSS対策
+ */
+function e($str)
+{
+  return htmlspecialchars($str, ENT_QUOTES);
+}
