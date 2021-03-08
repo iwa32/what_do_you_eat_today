@@ -250,13 +250,13 @@ function getFormData($key)
       if (!empty($_POST[$key])) {
 
         //POSTの内容を表示
-        return $_POST[$key];
+        return escape($_POST[$key]);
       } else {
 
         //POSTが存在し、DBの情報と違うならPOSTの情報を表示する
         if (!empty($_POST[$key]) && $_POST[$key] !== $dbFormData[$key]) {
 
-          return $_POST[$key];
+          return escape($_POST[$key]);
         } else {
 
           //そもそも変更がない場合
@@ -270,7 +270,7 @@ function getFormData($key)
   } else {
     //POSTがあるとき
     if (!empty($_POST[$key])) {
-      return $_POST[$key];
+      return escape($_POST[$key]);
     }
   }
 }
@@ -412,7 +412,7 @@ function showImg($path)
 /**
  * エスケープ処理XSS対策
  */
-function e($str)
+function escape($str)
 {
   return htmlspecialchars($str, ENT_QUOTES);
 }
