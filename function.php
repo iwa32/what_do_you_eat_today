@@ -216,7 +216,7 @@ function getUser($userId)
 
     debug('ユーザー情報を取得');
     $pdo = dbConnect();
-    $sql = 'SELECT * FROM users WHERE id = :u_id AND deleted_at IS NULL';
+    $sql = 'SELECT name, email, my_icon, message FROM users WHERE id = :u_id AND deleted_at IS NULL';
     $data = [':u_id' => $userId];
     $stmt = queryPost($pdo, $sql, $data);
 
@@ -414,5 +414,5 @@ function showImg($path)
  */
 function escape($str)
 {
-  return htmlspecialchars($str, ENT_QUOTES);
+  return htmlspecialchars($str, ENT_QUOTES, "UTF-8");
 }
