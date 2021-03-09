@@ -355,13 +355,13 @@ function uploadImage($file, $key)
     if (isset($file['error']) && is_int($file['error'])) {
       //エラーチェック
       switch ($file['error']) {
-        case UPLOAD_ERR_OK://問題ない場合
+        case UPLOAD_ERR_OK: //問題ない場合
           break;
-        case UPLOAD_ERR_INI_SIZE://php.iniの最大サイズを超えた場合
-        case UPLOAD_ERR_FORM_SIZE://フォーム定義のMAX_FILE_SIZEを超えた場合
+        case UPLOAD_ERR_INI_SIZE: //php.iniの最大サイズを超えた場合
+        case UPLOAD_ERR_FORM_SIZE: //フォーム定義のMAX_FILE_SIZEを超えた場合
           throw new RuntimeException('ファイルサイズが大きすぎます。');
           break;
-        case UPLOAD_ERR_NO_FILE://ファイルが選択されなかった場合
+        case UPLOAD_ERR_NO_FILE: //ファイルが選択されなかった場合
           throw new RuntimeException('ファイルが選択されていません。');
           break;
         default:
@@ -388,7 +388,6 @@ function uploadImage($file, $key)
     chmod($path, 0644);
 
     return $path;
-
   } catch (RuntimeException $e) {
     //実行時にならないとわからないエラーをcatchする
     error_log('ファイルのエラー発生' . $e->getMessage());
@@ -402,7 +401,7 @@ function uploadImage($file, $key)
  */
 function showImg($path)
 {
-  if(!empty($path)) {
+  if (!empty($path)) {
     return $path;
   } else {
     return 'img/no_image.png';
@@ -415,4 +414,11 @@ function showImg($path)
 function escape($str)
 {
   return htmlspecialchars($str, ENT_QUOTES, "UTF-8");
+}
+
+function echoCurrent($pageName, $current)
+{
+  if($pageName == $current) {
+    echo 'current';
+  }
 }
