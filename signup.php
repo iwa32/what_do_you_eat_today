@@ -6,9 +6,9 @@ debug('ユーザー登録ページ');
 debugLogStart();
 
 if (!empty($_POST)) {
-  $name = $_POST['name'];
-  $email = $_POST['email'];
-  $password = $_POST['password'];
+  $name = escape($_POST['name']);
+  $email = escape($_POST['email']);
+  $password = escape($_POST['password']);
 
   validRequired($email, 'email');
   validRequired($password, 'password');
@@ -86,7 +86,7 @@ require("head.php");
           <div class="form-area__group">
             <label for="name">
               <div class="form-area__group__name">お名前<span class="form-area__group__badge form-area__group__badge--any">[任意]</span></div>
-              <input class="form-area__group__input" type="text" name="name" id="name" value="<?php if(!empty($_POST['name'])) echo $_POST['name']; ?>">
+              <input class="form-area__group__input" type="text" name="name" id="name" value="<?php getFormData('name'); ?>">
               <div class="form-area__group__alert"><?php echo getErrMsg('name') ?></div>
               <div class="form-area__group__place-holder">山田太郎</div>
             </label>
@@ -96,7 +96,7 @@ require("head.php");
             <label for="email">
               <div class="form-area__group__name">Eメール<span class="form-area__group__badge form-area__group__badge--required">[必須]</span></div>
               <div class="form-area__group__help">Eメール形式で入力してください</div>
-              <input class="form-area__group__input" type="text" name="email" id="email" value="<?php if(!empty($_POST['email'])) echo $_POST['email']; ?>">
+              <input class="form-area__group__input" type="text" name="email" id="email" value="<?php getFormData('email'); ?>">
               <div class="form-area__group__alert"><?php echo getErrMsg('email'); ?></div>
               <div class="form-area__group__place-holder">you@example.com</div>
             </label>
@@ -106,7 +106,7 @@ require("head.php");
             <label for="password">
               <div class="form-area__group__name">パスワード<span class="form-area__group__badge form-area__group__badge--required">[必須]</span></div>
               <div class="form-area__group__help">5文字以上で半角英数字で入力してください</div>
-              <input class="form-area__group__input" type="password" name="password" id="password" value="<?php if(!empty($_POST['password'])) echo $_POST['password'] ?>">
+              <input class="form-area__group__input" type="password" name="password" id="password" value="<?php getFormData('password'); ?>">
               <div class="form-area__group__alert"><?php echo getErrMsg('password'); ?></div>
             </label>
           </div>
@@ -116,9 +116,9 @@ require("head.php");
               <button class="form-area__auth-btn form-area__auth-btn--normal disabled" id="submitBtn">登録する</button>
             </div>
 
-            <div class="form-area__btn--wrapp">
+            <!-- <div class="form-area__btn--wrapp">
               <button class="form-area__auth-btn form-area__auth-btn--twitter">Sign in with Twitter</button>
-            </div>
+            </div> -->
           </div>
         </form>
 
