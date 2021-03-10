@@ -14,9 +14,9 @@ require('auth.php');
 if (!empty($_POST)) {
 
   debug('POST送信されました。');
-  $email = $_POST['email'];
-  $password = $_POST['password'];
-  $password_save = !empty($_POST['password_save']) ? true: false;
+  $email = escape($_POST['email']);
+  $password = escape($_POST['password']);
+  $password_save = !empty(escape($_POST['password_save'])) ? true: false;
 
   //バリデーション
   debug('バリデーション開始');
@@ -104,7 +104,7 @@ require("head.php");
             <label for="email">
               <div class="form-area__group__name">Eメール<span class="form-area__group__badge form-area__group__badge--required">[必須]</span></div>
               <div class="form-area__group__help">Eメール形式で入力してください</div>
-              <input class="form-area__group__input" type="text" name="email" id="email"　value="<?php if(!empty($_POST['email'])) echo $_POST['email']; ?>">
+              <input class="form-area__group__input" type="text" name="email" id="email"　value="<?php if(!empty($_POST['email'])) echo escape($_POST['email']); ?>">
               <div class="form-area__group__alert"><?php echo getErrMsg('email'); ?></div>
               <div class="form-area__group__place-holder">you@example.com</div>
             </label>
@@ -114,7 +114,7 @@ require("head.php");
             <label for="password">
               <div class="form-area__group__name">パスワード<span class="form-area__group__badge form-area__group__badge--required">[必須]</span></div>
               <div class="form-area__group__help">パスワードは5文字以上で入力してください</div>
-              <input class="form-area__group__input" type="password" name="password" id="password" value="<?php if(!empty($_POST['password'])) echo $_POST['password']; ?>">
+              <input class="form-area__group__input" type="password" name="password" id="password" value="<?php if(!empty($_POST['password'])) echo escape($_POST['password']); ?>">
               <div class="form-area__group__alert"><?php echo getErrMsg('password'); ?></div>
             </label>
           </div>

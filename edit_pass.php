@@ -13,9 +13,9 @@ $userData = getUser($_SESSION['user_id']);
 if (!empty($_POST)) {
   debug('POST送信があります。');
   debug('POST送信内容' . print_r($_POST, true));
-  $currentPass = $_POST['current_pass'];
-  $newPass = $_POST['new_pass'];
-  $newPassConfirm = $_POST['new_pass_confirm'];
+  $currentPass = escape($_POST['current_pass']);
+  $newPass = escape($_POST['new_pass']);
+  $newPassConfirm = escape($_POST['new_pass_confirm']);
 
   //バリデーションチェック
   //未入力チェック
@@ -28,6 +28,7 @@ if (!empty($_POST)) {
     debug('未入力チェックOK');
     validPass($currentPass, 'current_pass');
 
+    var_dump($currentPass, $userData);
     //現在のパスワードとDBのパスワードを照合する
     if (!password_verify($currentPass, $userData['password'])) {
       $err_msg['current_pass'] = MSG_NO_MATCH_CURRENT_PASS;
@@ -107,7 +108,7 @@ require("head.php");
           <div class="form-area__group">
             <label for="currentPass">
               <div class="form-area__group__name">現在のパスワード<span class="form-area__group__badge form-area__group__badge--required">[必須]</span></div>
-              <input class="form-area__group__input" type="text" name="current_pass" id="currentPass" value="<?php echo getFormData('current_pass'); ?>">
+              <input class="form-area__group__input" type="password" name="current_pass" id="currentPass" value="<?php echo getFormData('current_pass'); ?>">
               <div class="form-area__group__alert"><?php echo getErrMsg('current_pass'); ?></div>
             </label>
           </div>
@@ -116,7 +117,7 @@ require("head.php");
             <label for="newPass">
               <div class="form-area__group__name">新しいパスワード<span class="form-area__group__badge form-area__group__badge--required">[必須]</span></div>
               <div class="form-area__group__help">5文字以上で半角英数字で入力してください</div>
-              <input class="form-area__group__input" type="text" name="new_pass" id="newPass" value="<?php echo getFormData('new_pass'); ?>">
+              <input class="form-area__group__input" type="password" name="new_pass" id="newPass" value="<?php echo getFormData('new_pass'); ?>">
               <div class="form-area__group__alert"><?php echo getErrMsg('new_pass'); ?></div>
             </label>
           </div>
@@ -124,7 +125,7 @@ require("head.php");
           <div class="form-area__group">
             <label for="newPassConfirm">
               <div class="form-area__group__name">新しいパスワード(再入力)<span class="form-area__group__badge form-area__group__badge--required">[必須]</span></div>
-              <input class="form-area__group__input" type="text" name="new_pass_confirm" id="newPassConfirm" value="<?php echo getFormData('new_pass_confirm'); ?>">
+              <input class="form-area__group__input" type="password" name="new_pass_confirm" id="newPassConfirm" value="<?php echo getFormData('new_pass_confirm'); ?>">
               <div class="form-area__group__alert"><?php echo getErrMsg('new_pass_confirm'); ?></div>
             </label>
           </div>

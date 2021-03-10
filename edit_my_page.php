@@ -12,9 +12,9 @@ $dbFormData = getUser($_SESSION['user_id']);
 if (!empty($_POST)) {
 
   debug('POST送信があります。');
-  $name = $_POST['name'];
-  $email = $_POST['email'];
-  $message = $_POST['message'];
+  $name = escape($_POST['name']);
+  $email = escape($_POST['email']);
+  $message = escape($_POST['message']);
   //ファイルが送信されていればそのファイルのパスを格納する。
   $my_icon = (!empty($_FILES['my_icon']['name'])) ? uploadImage($_FILES['my_icon'], 'my_icon') : '';
   //ファイルが送信されていないが、ユーザーデータにアイコンのパスがあればそのパスを格納する。
@@ -103,7 +103,7 @@ require("head.php");
           <div class="form-area__group">
             <label for="myIcon" class="my-icon" id="imageArea">
               <p class="my-icon__thum-img">
-                <img src="<?php echo (!empty(getFormData('my_icon'))) ? getFormData('my_icon') : 'http://placehold.jp/180x180.png'; ?>" id="myIconImg">
+                <img src="<?php echo showImg(getFormData('my_icon')); ?>" id="myIconImg">
               </p>
               <input type="hidden" name="MAX_FILE_SIZE" value="3145728">
               <input type="file" name="my_icon" id="myIcon" class="my-icon__input-file">
@@ -111,7 +111,6 @@ require("head.php");
               <div class="form-area__group__place-holder">ドラッグ&ドロップかクリックでファイルを選択</div>
               <div class="form-area__group__alert"><?php echo getErrMsg('my_icon'); ?></div>
             </label>
-            <!-- エラー時アラートを追加 -->
           </div>
 
           <div class="form-area__group">

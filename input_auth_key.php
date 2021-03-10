@@ -10,7 +10,7 @@ if (!empty($_POST)) {
   debug('POST送信があります。');
   debug('POSTの中身' . print_r($_POST, true));
 
-  $auth_key = $_POST['auth_key'];
+  $auth_key = escape($_POST['auth_key']);
   //未入力チェック
   validRequired($auth_key, 'auth_key');
 
@@ -104,7 +104,7 @@ require('head.php');
           <div class="form-area__group">
             <label for="email">
               <div class="form-area__group__name">認証キー<span class="form-area__group__badge form-area__group__badge--required">[必須]</span></div>
-              <input class="form-area__group__input" type="text" name="auth_key" id="authKey" value="<?php if (!empty($_POST['auth_key'])) echo $_POST['auth_key']; ?>">
+              <input class="form-area__group__input" type="text" name="auth_key" id="authKey" value="<?php if (!empty($_POST['auth_key'])) echo escape($_POST['auth_key']); ?>">
               <div class="form-area__group__alert"><?php echo getErrMsg('auth_key'); ?></div>
             </label>
           </div>
