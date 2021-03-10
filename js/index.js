@@ -36,9 +36,11 @@ $(function () {
   });
 
   //検索した飲食点のお気に入りアイコンをクリックした時
-  $('#mealSearchResultLists').on('click', '.meal-search-result__list__favorite', function () {
+  $('#mealSearchResultLists').on('click', '.meal-search-result__list__favorite', function (event) {
     var place_id = $(this).parent().data('place-id');
     postMealFavorite(place_id, $(this));
+    //親へのイベントの伝播を停止
+    event.stopPropagation();
   });
 
   //プロフィール編集ページへ
