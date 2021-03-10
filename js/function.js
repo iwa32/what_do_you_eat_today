@@ -208,11 +208,11 @@ function checkFormSending(event, isValidValues) {
 }
 
 /**
- * 食べ物を検索の開始
+ * 食べ物を検索の開始の準備
  * @param {*} firstSelect
  * @param {*} secondSelect
  */
-function startSearchFoods(firstSelect, secondSelect) {
+function getReadyToStartYourSearch(firstSelect, secondSelect) {
   //ローディング表示
   showLoader();
 
@@ -222,8 +222,8 @@ function startSearchFoods(firstSelect, secondSelect) {
       //取得成功時の処理
       const lat = position.coords.latitude; //緯度
       const lng = position.coords.longitude; //経度
-
-      searchNearFoods(lat, lng, firstSelect, secondSelect);
+      //検索を開始
+      startSearchFoods(lat, lng, firstSelect, secondSelect);
     }),
     geoError
   );
@@ -232,23 +232,25 @@ function startSearchFoods(firstSelect, secondSelect) {
 //取得失敗
 function geoError() {
   //ローディング非表示、通信失敗
-  alert('Geolocation Error');
+  alert('現在位置が取得できませんでした。');
   fadeOutLoader();
 }
 
 /**
- * 近い飲食店を検索する
+ * 飲食店を検索する
  * @param {*} lat
  * @param {*} lng
  * @param {*} firstSelect
  * @param {*} secondSelect
  */
-function searchNearFoods(lat, lng, firstSelect, secondSelect) {
+function startSearchFoods(lat, lng, firstSelect, secondSelect) {
 
   if (firstSelect.length != 0 && secondSelect.length != 0) {
     //mapを作成
     createMap(lat, lng);
     searchFoodInfo(lat, lng, firstSelect, secondSelect);
+  } else {
+    alert('ジャンルが選択されませんでした。');
   }
 }
 
@@ -297,16 +299,16 @@ function searchFoodInfo(lat, lng, firstSelect, secondSelect) {
     radius: "500",
     query: firstSelect + ' ' + secondSelect
   }
-  service.textSearch(requests, searchFoodResult);
+  service.textSearch(requests, setSearchFoodResult);
 }
 
 /**
- * キーワードに応じた飲食店の検索結果
+ * キーワードに応じた飲食店の検索結果をセット
  * @param {*} results
  * @param {*} status
  */
 
-function searchFoodResult(results, status) {
+function setSearchFoodResult(results, status) {
 
   var $resultMessage = $('#mealSearchResultCount');
 
@@ -321,7 +323,6 @@ function searchFoodResult(results, status) {
     for (var i = 0; i < results.length; i++) {
 
       var food = results[i];
-
       getFoodDetails(food, i);
     }
     //ローディング非表示
@@ -537,7 +538,7 @@ function getFormatOpeningHourForWeek(arrayOpeningHour) {
 }
 
 /**
- * マーカー作成
+ * mapにマーカー作成
  * @param {*} results
  */
 function createMarker(results, details) {

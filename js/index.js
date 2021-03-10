@@ -12,18 +12,19 @@ $(function () {
     });
   }
 
+  //ランチかディナーか選択
   var firstSelect = "";
   $('#firstSelect .eat-select__list').on('click', function () {
     selectNextGenre($('#firstSelect'), $('#secondSelect'));
     firstSelect = this.innerText;
   });
 
-  //選択後、飲食店を検索する
+  //選択後、飲食店の検索を開始の準備をする
   var secondSelect = "";
   $('#secondSelect .eat-select__list').on('click', function () {
 
     secondSelect = this.innerText;
-    startSearchFoods(firstSelect, secondSelect);
+    getReadyToStartYourSearch(firstSelect, secondSelect);
   });
 
   //検索した飲食店をクリックした時
