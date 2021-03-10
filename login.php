@@ -16,7 +16,7 @@ if (!empty($_POST)) {
   debug('POST送信されました。');
   $email = escape($_POST['email']);
   $password = escape($_POST['password']);
-  $password_save = !empty(escape($_POST['password_save'])) ? true: false;
+  $password_save = !empty($_POST['password_save']) ? true: false;
 
   //バリデーション
   debug('バリデーション開始');
