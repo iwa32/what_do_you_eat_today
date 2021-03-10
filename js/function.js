@@ -398,24 +398,31 @@ function appendMealSearchResultList(results) {
   //今日の営業時間
   var currentOpeningHours = getFormatOpeningHourForWeek(tmp[todaysDay]);
   var $mealSearchResultLists = $('#mealSearchResultLists');
+  var appendData = `<li class="meal-search-result__list" data-lat="${results.geometry.location.lat()}" data-lng="${results.geometry.location.lng()}" data-place-id="${results.place_id}">
+  <div class="meal-search-result__details">
+    <h3 class="meal-search-result__details__title">${results.name}</h3>
+    <dl class="meal-search-result__details__info">
+      <dt>住所:</dt>
+      <dd>${address}</dd>
+      <dt>${openNow}:</dt>
+      <dd>${currentOpeningHours}</dd>
+      <dt>TEL:</dt>
+      <dd>${results.formatted_phone_number}</dd>
+    </dl>
+  </div>
+  <p class="meal-search-result__list__img"><img src="${topThum}"></p>`;
 
-  $mealSearchResultLists.append(
-    `<li class="meal-search-result__list" data-lat="${results.geometry.location.lat()}" data-lng="${results.geometry.location.lng()}" data-place-id="${results.place_id}">
-      <div class="meal-search-result__details">
-        <h3 class="meal-search-result__details__title">${results.name}</h3>
-        <dl class="meal-search-result__details__info">
-          <dt>住所:</dt>
-          <dd>${address}</dd>
-          <dt>${openNow}:</dt>
-          <dd>${currentOpeningHours}</dd>
-          <dt>TEL:</dt>
-          <dd>${results.formatted_phone_number}</dd>
-        </dl>
-      </div>
-      <p class="meal-search-result__list__img"><img src="${topThum}"></p>
-      <i class="fa fa-heart meal-search-result__list__favorite" aria-hidden="true"></i>
-    </li>`
-  );
+  if (!userId) {
+    //ユーザー登録していない場合
+    appendData += '</li>';
+  } else {
+    //登録していたらお気に入りアイコンを表示
+    appendData += '<i class="fa fa-heart meal-search-result__list__favorite" aria-hidden="true"></i></li>';
+  }
+
+  //todo お気に入りに登録済みならアイコンをアクティブにする?
+
+  $mealSearchResultLists.append(appendData);
 
   var details = {
     address,
@@ -656,30 +663,30 @@ function postMealFavorite(place_id, $node) {
     food_id: place_id
   };
 
-  //リクエスト成功したらハートをアクティブにする?
+  //リクエスト成功したらハートをアクティブにする
   $.ajax({
-    type: "POST",
-    url: "/meal_favorite.php",
-    data: requests,
-    dataType: "json",
-  })
-  .done(function(response) {
+      type: "POST",
+      url: "/meal_favorite.php",
+      data: requests,
+      dataType: "json",
+    })
+    .done(function (response) {
 
-    if (response?.length) {
-      if(response.isFavorite) {
-        //お気に入り登録
-        $node.addClass('active');
+      if ('isFavorite' in response) {
+        if (response.isFavorite) {
+          //お気に入り登録
+          $node.addClass('active');
+        } else {
+          //お気に入り解除
+          $node.removeClass('active');
+        }
       } else {
-        //お気に入り解除
-        $node.removeClass('active');
+        alert('お気に入り登録は会員登録をする必要があります。');
       }
-    } else {
-      // alert('お気に入り登録は会員登録をする必要があります。');
-    }
-  })
-  .fail(function(error){
-    alert('システムにエラーが発生しました。時間を置いて再度ご登録ください。');
-  });
+    })
+    .fail(function (error) {
+      alert('システムにエラーが発生しました。時間を置いて再度ご登録ください。');
+    });
 }
 
 /**
@@ -690,7 +697,7 @@ function postMealFavorite(place_id, $node) {
 function readingImageFile($myIconImg, event) {
 
   var fileReader = new FileReader;
-  fileReader.onload = (function() {
+  fileReader.onload = (function () {
     $myIconImg.attr('src', fileReader.result);
   });
   fileReader.readAsDataURL(event.target.files[0]);
