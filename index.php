@@ -61,21 +61,21 @@ require("head.php");
           </ul>
         </div>
 
-        <div class="meal-search-result" id="mealSearchResult">
-          <p class="meal-search-result__found" id="mealSearchResultCount">候補のお店が○件見つかりました</p>
+        <div class="food-search-result" id="foodSearchResult">
+          <p class="food-search-result__found" id="foodSearchResultCount">候補のお店が○件見つかりました</p>
 
-          <div class="meal-search-result__contents">
-            <ul class="meal-search-result__lists" id="mealSearchResultLists">
+          <div class="food-search-result__contents">
+            <ul class="food-search-result__lists" id="foodSearchResultLists">
             </ul>
             <!-- ※3件以上あったらスクロールできることを示唆するアイコンを表示する -->
 
-            <div class="meal-search-result__g-map" id="map">
+            <div class="food-search-result__g-map" id="map">
             </div>
           </div>
 
 
 
-          <p class="meal-search-result__to-top">
+          <p class="food-search-result__to-top">
             <a href="./">トップへ戻る</a>
           </p>
         </div>

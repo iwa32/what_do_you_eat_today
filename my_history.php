@@ -1,6 +1,6 @@
 <?php require("profile.php") ?>
 <div class="my-page__body">
-  <div class="meal-search-history">
+  <div class="food-search-history">
     検索履歴
   </div>
 </div>

@@ -1,6 +1,6 @@
 <?php require("profile.php") ?>
 <div class="my-page__body">
-  <div class="favorite-meal">
+  <div class="favorite-food">
     お気に入りの飲食店
   </div>
 </div>

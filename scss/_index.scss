@@ -135,7 +135,7 @@
 }
 
 //検索結果
-.meal-search-result {
+.food-search-result {
   margin: 0 auto;
   padding: 20px;
   max-width: 800px;
@@ -330,7 +330,7 @@
 }
 
 //マップ、マーカークリック時の飲食店詳細
-.meal-detail {
+.food-detail {
   &__lists {
     display: flex;
     flex-flow: row wrap;

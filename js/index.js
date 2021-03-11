@@ -29,16 +29,16 @@ $(function () {
 
   //検索した飲食店をクリックした時
   //ajaxで追加したhtmlはonメソッドの第二引数に指定することでイベントが発火されるようになる。
-  $('#mealSearchResultLists').on('click', '.meal-search-result__list', function () {
+  $('#foodSearchResultLists').on('click', '.food-search-result__list', function () {
     var lat = $(this).data('lat');
     var lng = $(this).data('lng');
-    moveToMealMap(lat, lng);
+    moveToFoodMap(lat, lng);
   });
 
   //検索した飲食点のお気に入りアイコンをクリックした時
-  $('#mealSearchResultLists').on('click', '.meal-search-result__list__favorite', function (event) {
+  $('#foodSearchResultLists').on('click', '.food-search-result__list__favorite', function (event) {
     var place_id = $(this).parent().data('place-id');
-    postMealFavorite(place_id, $(this));
+    postFoodFavorite(place_id, $(this));
     //親へのイベントの伝播を停止
     event.stopPropagation();
   });

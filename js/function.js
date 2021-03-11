@@ -280,7 +280,7 @@ function createMap(lat, lng) {
  * @param {*} lat
  * @param {*} lng
  */
-function moveToMealMap(lat, lng) {
+function moveToFoodMap(lat, lng) {
   map.panTo(new google.maps.LatLng(lat, lng));
 }
 
@@ -310,10 +310,10 @@ function searchFoodInfo(lat, lng, firstSelect, secondSelect) {
 
 function setSearchFoodResult(results, status) {
 
-  var $resultMessage = $('#mealSearchResultCount');
+  var $resultMessage = $('#foodSearchResultCount');
 
   //取得内容表示用のHTMLを表示
-  selectNextGenre($('#secondSelect'), $('#mealSearchResult'));
+  selectNextGenre($('#secondSelect'), $('#foodSearchResult'));
 
   if (results.length !== 0) {
 
@@ -349,7 +349,7 @@ function getFoodDetails(food, i) {
     service.getDetails(requests, function (results, status) {
       if (status === 'OK') {
         //取得成功なら
-        appendMealSearchResultList(results);
+        appendFoodSearchResultList(results);
       }
     });
   }, i * 300)
@@ -359,7 +359,7 @@ function getFoodDetails(food, i) {
  * 取得結果をhtml上に表示する
  * @param {*} results
  */
-function appendMealSearchResultList(results) {
+function appendFoodSearchResultList(results) {
 
   //住所
   var address = "";
@@ -397,11 +397,11 @@ function appendMealSearchResultList(results) {
   tmp = getArrayOpeningHours(results.opening_hours);
   //今日の営業時間
   var currentOpeningHours = getFormatOpeningHourForWeek(tmp[todaysDay]);
-  var $mealSearchResultLists = $('#mealSearchResultLists');
-  var appendData = `<li class="meal-search-result__list" data-lat="${results.geometry.location.lat()}" data-lng="${results.geometry.location.lng()}" data-place-id="${results.place_id}">
-  <div class="meal-search-result__details">
-    <h3 class="meal-search-result__details__title">${results.name}</h3>
-    <dl class="meal-search-result__details__info">
+  var $foodSearchResultLists = $('#foodSearchResultLists');
+  var appendData = `<li class="food-search-result__list" data-lat="${results.geometry.location.lat()}" data-lng="${results.geometry.location.lng()}" data-place-id="${results.place_id}">
+  <div class="food-search-result__details">
+    <h3 class="food-search-result__details__title">${results.name}</h3>
+    <dl class="food-search-result__details__info">
       <dt>住所:</dt>
       <dd>${address}</dd>
       <dt>${openNow}:</dt>
@@ -410,19 +410,19 @@ function appendMealSearchResultList(results) {
       <dd>${results.formatted_phone_number}</dd>
     </dl>
   </div>
-  <p class="meal-search-result__list__img"><img src="${topThum}"></p>`;
+  <p class="food-search-result__list__img"><img src="${topThum}"></p>`;
 
   if (!userId) {
     //ユーザー登録していない場合
     appendData += '</li>';
   } else {
     //登録していたらお気に入りアイコンを表示
-    appendData += '<i class="fa fa-heart meal-search-result__list__favorite" aria-hidden="true"></i></li>';
+    appendData += '<i class="fa fa-heart food-search-result__list__favorite" aria-hidden="true"></i></li>';
   }
 
   //todo お気に入りに登録済みならアイコンをアクティブにする?
 
-  $mealSearchResultLists.append(appendData);
+  $foodSearchResultLists.append(appendData);
 
   var details = {
     address,
@@ -581,14 +581,14 @@ function createMarker(results, details) {
 function getFoodContentString(results, details) {
   //サムネイル表示用のリストHTML
   var thumLists = "";
-  var mealThum = "";
+  var foodThum = "";
   const maxThumLength = 4;
 
   for (var i = 0; i < maxThumLength; i++) {
     //サムネイルを4枚まで表示する
     if (results.photos[i]) {
-      mealThum = results.photos[i].getUrl();
-      thumLists += `<li><img src="${mealThum}"></li>`;
+      foodThum = results.photos[i].getUrl();
+      thumLists += `<li><img src="${foodThum}"></li>`;
     }
   }
 
@@ -625,18 +625,18 @@ function getFoodContentString(results, details) {
 
   //詳細のUI
   var contentString =
-    `<section class="meal-detail">
+    `<section class="food-detail">
       <div>
-        <ul class="meal-detail__lists">
+        <ul class="food-detail__lists">
           ${thumLists}
         </ul>
         <h3>${results.name}</h3>
-        <dl class="meal-detail__show">
+        <dl class="food-detail__show">
           <dt>住所:</dt>
           <dd>${details.address}</dd>
           <dt>TEL:</dt>
           <dd>${results.formatted_phone_number}</dd>
-          <dt>営業時間<br><span class="meal-detail__open-now">${details.openNow}<span></dt>
+          <dt>営業時間<br><span class="food-detail__open-now">${details.openNow}<span></dt>
           <dd>
             <ul class="opening-hour-lists">
             ${openingHourLists}
@@ -644,7 +644,7 @@ function getFoodContentString(results, details) {
           </dd>
         </dl>
         <h4>クチコミ</h4>
-        <ul class="meal-detail__review-lists">
+        <ul class="food-detail__review-lists">
           ${reviewLists}
         </ul>
       </div>
@@ -658,7 +658,7 @@ function getFoodContentString(results, details) {
  * @param {*} place_id
  * @param {*} $node
  */
-function postMealFavorite(place_id, $node) {
+function postFoodFavorite(place_id, $node) {
   var requests = {
     food_id: place_id
   };
@@ -666,7 +666,7 @@ function postMealFavorite(place_id, $node) {
   //リクエスト成功したらハートをアクティブにする
   $.ajax({
       type: "POST",
-      url: "/meal_favorite.php",
+      url: "/food_favorite.php",
       data: requests,
       dataType: "json",
     })
