@@ -28,7 +28,6 @@ if (!empty($_POST)) {
     debug('未入力チェックOK');
     validPass($currentPass, 'current_pass');
 
-    var_dump($currentPass, $userData);
     //現在のパスワードとDBのパスワードを照合する
     if (!password_verify($currentPass, $userData['password'])) {
       $err_msg['current_pass'] = MSG_NO_MATCH_CURRENT_PASS;
