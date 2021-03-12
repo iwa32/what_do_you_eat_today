@@ -64,7 +64,7 @@ if (!empty($_POST)) {
       $stmt = queryPost($pdo, $sql, $data);
 
       if ($stmt) {
-
+        $_SESSION['msg_success'] = SUC_EDITED_PROFILE;
         debug('クエリ成功');
         debug('マイページへ遷移します。');
         header('Location:my_page.php');

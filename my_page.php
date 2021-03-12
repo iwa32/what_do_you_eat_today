@@ -16,6 +16,7 @@ require("head.php");
 
 <body>
   <?php require("header.php"); ?>
+  <?php require('alert_msg.php'); ?>
   <?php
   $current = 'favorite';
   require('profile.php');

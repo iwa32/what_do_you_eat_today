@@ -60,6 +60,8 @@ define('MSG_RETYPE_NOT_MATCH', '再入力があっていません。');
 define('MSG_EXPIRED', '有効期限切れです。');
 define('MSG_AUTH_IS_INCORRECT', '認証キーが正しくありません。');
 define('SUC_SENDED_MAIL', 'メールを送信しました。');
+define('SUC_EDITED_PROFILE', 'プロフィールを編集しました。');
+define('SUC_EDITED_PASS', 'パスワードを変更しました。');
 
 
 /**

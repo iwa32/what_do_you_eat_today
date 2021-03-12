@@ -56,6 +56,8 @@ if (!empty($_POST)) {
 
         if($stmt) {
           debug('クエリ成功');
+
+          $_SESSION['msg_success'] = SUC_EDITED_PASS;
           
           //メール送信
           $userName = ($userData['name']) ? $userData['name']: 'unknown';
