@@ -10,7 +10,7 @@ debugLogStart();
 if (!empty($_POST)) {
   debug('POST送信があります。');
   debug('POSTの中身' . print_r($_POST, true));
-  $email = $_POST['email'];
+  $email = escape($_POST['email']);
 
   debug('バリデーション開始');
   //未入力チェック
@@ -100,7 +100,7 @@ require('head.php');
             <label for="email">
               <div class="form-area__group__name">Eメール<span class="form-area__group__badge form-area__group__badge--required">[必須]</span></div>
               <div class="form-area__group__help">Eメール形式で入力してください</div>
-              <input class="form-area__group__input" type="text" name="email" id="remindEmail" 　value="<?php if (!empty($_POST['email'])) echo $_POST['email']; ?>">
+              <input class="form-area__group__input" type="text" name="email" id="remindEmail" 　value="<?php getFormData('email'); ?>">
               <div class="form-area__group__alert"><?php echo getErrMsg('email'); ?></div>
               <div class="form-area__group__place-holder">you@example.com</div>
             </label>

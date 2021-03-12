@@ -88,10 +88,8 @@ require('head.php');
 ?>
 
 <body>
-  <?php
-  require('header.php');
-  ?>
-
+  <?php require('header.php'); ?>
+  <?php require('alert_msg.php'); ?>
   <main class="contents">
     <div class="main-container container">
       <div class="form-area">
@@ -104,7 +102,7 @@ require('head.php');
           <div class="form-area__group">
             <label for="email">
               <div class="form-area__group__name">認証キー<span class="form-area__group__badge form-area__group__badge--required">[必須]</span></div>
-              <input class="form-area__group__input" type="text" name="auth_key" id="authKey" value="<?php if (!empty($_POST['auth_key'])) echo escape($_POST['auth_key']); ?>">
+              <input class="form-area__group__input" type="text" name="auth_key" id="authKey" value="<?php getFormData('auth_key'); ?>">
               <div class="form-area__group__alert"><?php echo getErrMsg('auth_key'); ?></div>
             </label>
           </div>
