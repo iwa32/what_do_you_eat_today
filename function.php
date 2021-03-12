@@ -276,6 +276,18 @@ function getFormData($key)
 }
 
 /**
+ * セッション情報を一回だけ取得する
+ */
+function getSessionFlash($key)
+{
+  if(!empty($_SESSION[$key])) {
+    $data = $_SESSION[$key];
+    $_SESSION[$key] = '';
+    return $data;
+  }
+}
+
+/**
  * エラーメッセージ表示
  */
 function getErrMsg($key)
