@@ -27,6 +27,7 @@ require("head.php");
 
 <body>
   <?php require("header.php"); ?>
+  <?php require("alert_msg.php"); ?>
 
   <main class="contents">
     <div class="main-container container">

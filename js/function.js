@@ -673,12 +673,17 @@ function postFoodFavorite(place_id, $node) {
     .done(function (response) {
 
       if ('isFavorite' in response) {
+        var $alertMsg = $('#alertGlobalMessage');
         if (response.isFavorite) {
           //お気に入り登録
           $node.addClass('active');
+          $alertMsg.text('お気に入りに登録しました。');
+          fadeAlertMessage($alertMsg);
         } else {
           //お気に入り解除
           $node.removeClass('active');
+          $alertMsg.text('お気に入りを解除しました。');
+          fadeAlertMessage($alertMsg);
         }
       } else {
         alert('お気に入り登録は会員登録をする必要があります。');
@@ -687,6 +692,16 @@ function postFoodFavorite(place_id, $node) {
     .fail(function (error) {
       alert('システムにエラーが発生しました。時間を置いて再度ご登録ください。');
     });
+}
+
+/**
+ * アラートメッセージを表示する
+ * @param {*} $node 
+ */
+function fadeAlertMessage($node)
+{
+  //0.2秒後に表示し、2秒後フェードアウトする
+  $node.fadeIn(200).delay(2000).fadeOut(2000);
 }
 
 /**

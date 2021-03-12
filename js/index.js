@@ -17,7 +17,7 @@ $(function () {
   var $alertMsgTxt = $alertMsg.text();
   if($alertMsgTxt != '' && $alertMsgTxt !== ' ') {
     //0.2秒後に表示し、2秒後フェードアウトする
-    $alertMsg.fadeIn(200).delay(2000).fadeOut(2000);
+    fadeAlertMessage($alertMsg);
   }
 
   //ランチかディナーか選択
