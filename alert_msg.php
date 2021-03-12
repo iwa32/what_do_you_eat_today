@@ -1,0 +1,1 @@
+<div class="alert-global-message" id="alertGlobalMessage"><?php echo getSessionFlash('msg_success'); ?></div>

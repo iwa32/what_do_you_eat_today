@@ -105,7 +105,7 @@ body {
     padding: 4px 0;
   }
 }
-/*loading animation*/
+
 @keyframes rotation {
   0%{transform: rotate(0);}
   100%{transform: rotate(360deg);}
@@ -113,17 +113,16 @@ body {
 
 /*alert*/
 .alert-global-message {
-  border: 2px solid $sub-color;
-  display: none;/*最初は非表示*/
+  border: 2px solid $glay-color;
+  display: none;
   text-align: center;
   padding: 4px 2px;
   position: fixed;
-  left: 50%;
   bottom: 25%;
-  width: 480px;
-  max-width: 480px;
-  margin-left:-240px;
-  z-index: 9999;
+  left: 50%;
+  width: 50%;
+  max-width: 400px;
+  margin-left: -200px;
 }
 
 /*contents*/
