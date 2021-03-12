@@ -114,6 +114,7 @@ body {
 /*alert*/
 .alert-global-message {
   border: 2px solid $glay-color;
+  background-color: #fff;
   display: none;
   text-align: center;
   padding: 4px 2px;
@@ -123,6 +124,7 @@ body {
   width: 50%;
   max-width: 400px;
   margin-left: -200px;
+  z-index: 9999;
 }
 
 /*contents*/
