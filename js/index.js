@@ -5,11 +5,19 @@ $(function () {
   showLoader();
 
   var $footer = $('#globalFooter');
-  /**footerを下に固定する */
+  //footerを下に固定する
   if (window.innerHeight > $footer.offset().top + $footer.outerHeight()) {
     $footer.attr({
       'style': 'position:fixed; top:' + (window.innerHeight - $footer.outerHeight()) + 'px;'
     });
+  }
+
+  //アラートメッセージを表示する
+  var $alertMsg = $('#alertGlobalMessage');
+  var $alertMsgTxt = $alertMsg.text();
+  if($alertMsgTxt != '' && $alertMsgTxt !== ' ') {
+    //0.2秒後に表示し、2秒後フェードアウトする
+    $alertMsg.fadeIn(200).delay(2000).fadeOut(2000);
   }
 
   //ランチかディナーか選択
