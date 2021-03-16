@@ -24,9 +24,6 @@ require("head.php");
   <div class="my-page__body">
 
     <div class="selected-genre">
-      お気に入りの飲食店
-      UIはトップページと同様に、お気に入り登録した飲食の検索結果を表示させる。
-      情報はDBからidをもってきて、apiにリクエストするが、渡すidは一度に10レコード分までにしたいのでページネーション機能をつけて渡すidを動的に切り替えていく.
     </div>
   </div>
   </div>
